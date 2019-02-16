@@ -26,5 +26,7 @@ public class BabySitterApplication {
         if(input.equals("y")) {
             printStream.println("Took user input");
         }
+
+        printStream.println("Ending time: ");
     }
 }
