@@ -24,7 +24,7 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForStartTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -55,8 +55,21 @@ public class BabySitterApplicationTest {
     }
 
     @Test
+    public void shouldValidateUserInputForStartTime() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\n5pm".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("Invalid hour please enter value between 5pm and 4am"));
+        assertThat(outputStream.toString(), containsString("Received start time"));
+    }
+
+    @Test
     public void shouldValidateStartTimeInput() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -68,7 +81,7 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -80,7 +93,7 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldTakeUserInputForEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\ny".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm\ny".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -92,7 +105,7 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForFamilyBabySitting() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\ny".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm\ny".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -104,7 +117,7 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldTakeUserInputForFamily() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\ny\ny".getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm\ny\ny".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);

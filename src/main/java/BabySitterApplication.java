@@ -25,10 +25,13 @@ public class BabySitterApplication {
         printStream.println("Starting time: ");
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        final String startTime = bufferedReader.readLine();
-        if(Arrays.stream(WorkHours.values()).anyMatch(workHours -> workHours.getHour().equals(startTime))) {
-            printStream.println("Received start time");
+        String startTime = bufferedReader.readLine();
+        while(isInvalidWorkHour(startTime)) {
+            printStream.println("Invalid hour please enter value between 5pm and 4am");
+            printStream.println("Starting time: ");
+            startTime = bufferedReader.readLine();
         }
+        printStream.println("Received start time");
 
         printStream.println("Ending time: ");
         String endTime = bufferedReader.readLine();
@@ -41,5 +44,9 @@ public class BabySitterApplication {
         if(family != null && family.equals("y")) {
             printStream.println("Received family");
         }
+    }
+
+    private boolean isInvalidWorkHour(String startTime) {
+        return Arrays.stream(WorkHours.values()).noneMatch(workHours -> workHours.getHour().equals(startTime));
     }
 }
