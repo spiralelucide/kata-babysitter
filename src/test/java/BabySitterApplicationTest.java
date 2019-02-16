@@ -65,4 +65,16 @@ public class BabySitterApplicationTest {
 
         assertThat(outputStream.toString(), containsString("Received End time"));
     }
+
+    @Test
+    public void shouldPromptUserForFamilyBabySitting() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\ny".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("For which family: "));
+    }
 }
