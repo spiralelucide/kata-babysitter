@@ -24,13 +24,13 @@ public class BabySitterApplication {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String input = bufferedReader.readLine();
         if(input.equals("y")) {
-            printStream.println("Took user input");
+            printStream.println("Received start time");
         }
 
         printStream.println("Ending time: ");
         input = bufferedReader.readLine();
         if(input != null && input.equals("y")) {
-            printStream.println("Received End time");
+            printStream.println("Received end time");
         }
 
         printStream.println("For which family: ");

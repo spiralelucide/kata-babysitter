@@ -39,7 +39,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Took user input"));
+        assertThat(outputStream.toString(), containsString("Received start time"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Received End time"));
+        assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
     @Test
