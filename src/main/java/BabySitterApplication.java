@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public class BabySitterApplication {
@@ -15,7 +18,13 @@ public class BabySitterApplication {
         this.inputStream = inputStream;
     }
 
-    public void run() {
+    public void run() throws IOException {
         printStream.println("Starting time: ");
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String input = bufferedReader.readLine();
+        if(input.equals("y")) {
+            printStream.println("Took user input");
+        }
     }
 }
