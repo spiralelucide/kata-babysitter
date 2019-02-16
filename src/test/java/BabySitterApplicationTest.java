@@ -68,18 +68,6 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldValidateStartTimeInput() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm".getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
-
-        babySitterApplication.run();
-
-        assertThat(outputStream.toString(), containsString(""));
-    }
-
-    @Test
     public void shouldPromptUserForEndTime() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
