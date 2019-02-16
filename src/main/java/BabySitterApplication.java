@@ -14,4 +14,8 @@ public class BabySitterApplication {
         this.printStream = printStream;
         this.inputStream = inputStream;
     }
+
+    public void run() {
+        printStream.println("Starting time: ");
+    }
 }
