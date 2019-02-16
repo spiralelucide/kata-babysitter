@@ -28,5 +28,9 @@ public class BabySitterApplication {
         }
 
         printStream.println("Ending time: ");
+        input = bufferedReader.readLine();
+        if(input != null && input.equals("y")) {
+            printStream.println("Received End time");
+        }
     }
 }

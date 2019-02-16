@@ -53,4 +53,16 @@ public class BabySitterApplicationTest {
 
         assertThat(outputStream.toString(), containsString("Ending time: "));
     }
+
+    @Test
+    public void shouldTakeUserInputForEndTime() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\ny".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("Received End time"));
+    }
 }
