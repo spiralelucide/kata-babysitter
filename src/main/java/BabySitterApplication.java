@@ -1,8 +1,11 @@
+import model.WorkHours;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 public class BabySitterApplication {
 
@@ -22,19 +25,20 @@ public class BabySitterApplication {
         printStream.println("Starting time: ");
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String input = bufferedReader.readLine();
-        if(input.equals("y")) {
+        final String startTime = bufferedReader.readLine();
+        if(Arrays.stream(WorkHours.values()).anyMatch(workHours -> workHours.getHour().equals(startTime))) {
             printStream.println("Received start time");
         }
 
         printStream.println("Ending time: ");
-        input = bufferedReader.readLine();
-        if(input != null && input.equals("y")) {
+        String endTime = bufferedReader.readLine();
+        if(endTime != null && endTime.equals("y")) {
             printStream.println("Received end time");
         }
 
         printStream.println("For which family: ");
-        if(input != null && input.equals("y")) {
+        String family = bufferedReader.readLine();
+        if(family != null && family.equals("y")) {
             printStream.println("Received family");
         }
     }

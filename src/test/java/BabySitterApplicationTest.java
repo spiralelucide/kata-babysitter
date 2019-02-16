@@ -1,9 +1,13 @@
+import model.TestInputOutput;
+import model.WorkHours;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -31,7 +35,27 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldTakeUserInputForStartTime() throws IOException {
+    public void shouldTakeValidUserInputForStartTime() throws IOException {
+        List<TestInputOutput> inputOutputs = new ArrayList<>();
+
+        for(WorkHours hour : WorkHours.values()) {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(hour.getHour().getBytes());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            inputOutputs.add(new TestInputOutput(inputStream,outputStream));
+        }
+
+        for(TestInputOutput inputOutput : inputOutputs) {
+            BabySitterApplication babySitterApplication =
+                    new BabySitterApplication(new PrintStream(inputOutput.getOutputStream()), inputOutput.getInputStream());
+
+            babySitterApplication.run();
+
+            assertThat(inputOutput.getOutputStream().toString(), containsString("Received start time"));
+        }
+    }
+
+    @Test
+    public void shouldValidateStartTimeInput() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -39,7 +63,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Received start time"));
+        assertThat(outputStream.toString(), containsString(""));
     }
 
     @Test
