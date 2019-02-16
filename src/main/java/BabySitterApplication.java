@@ -34,5 +34,8 @@ public class BabySitterApplication {
         }
 
         printStream.println("For which family: ");
+        if(input != null && input.equals("y")) {
+            printStream.println("Received family");
+        }
     }
 }
