@@ -19,7 +19,7 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldAskBabySittingStartTime() throws IOException {
+    public void shouldPromptUserForStartTime() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -43,7 +43,7 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldAskBabySittingEndTime() throws IOException {
+    public void shouldPromptUserForEndTime() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
