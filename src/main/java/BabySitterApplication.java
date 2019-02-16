@@ -35,7 +35,7 @@ public class BabySitterApplication {
 
         printStream.println("Ending time: ");
         String endTime = bufferedReader.readLine();
-        if(endTime != null && endTime.equals("y")) {
+        if(!isInvalidWorkHour(endTime)) {
             printStream.println("Received end time");
         }
 

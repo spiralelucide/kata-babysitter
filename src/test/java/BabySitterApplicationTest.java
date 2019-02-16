@@ -80,15 +80,23 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldTakeUserInputForEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5pm\ny".getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    public void shouldTakeValidUserInputForEndTime() throws IOException {
+        List<TestInputOutput> inputOutputs = new ArrayList<>();
 
-        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+        for(WorkHours hour : WorkHours.values()) {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5pm\n" + hour.getHour()).getBytes());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            inputOutputs.add(new TestInputOutput(inputStream,outputStream));
+        }
 
-        babySitterApplication.run();
+        for(TestInputOutput inputOutput : inputOutputs) {
+            BabySitterApplication babySitterApplication =
+                    new BabySitterApplication(new PrintStream(inputOutput.getOutputStream()), inputOutput.getInputStream());
 
-        assertThat(outputStream.toString(), containsString("Received end time"));
+            babySitterApplication.run();
+
+            assertThat(inputOutput.getOutputStream().toString(), containsString("Received end time"));
+        }
     }
 
     @Test
