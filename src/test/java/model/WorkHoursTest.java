@@ -10,6 +10,6 @@ public class WorkHoursTest {
     public void shouldGetHour() {
         WorkHours hour = WorkHours.Four;
 
-        assertEquals("4", hour.getHour().toString());
+        assertEquals("4:00am", hour.getHour().toString());
     }
 }

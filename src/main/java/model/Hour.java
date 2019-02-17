@@ -9,13 +9,18 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class Hour {
     private Integer hour;
+    private String amPm;
 
-    public Hour(Integer hour) {
+    public Hour(){}
+
+    public Hour(Integer hour, String amPm) {
         this.hour = hour;
+        this.amPm = amPm;
     }
 
     @Override
     public String toString() {
-        return hour.toString();
+        return String.format("%s:00%s",hour.toString(),amPm);
     }
+
 }

@@ -39,7 +39,7 @@ public class BabySitterApplicationTest {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
         for(WorkHours hour : WorkHours.values()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour() + ":00am" + "\n12:00am").getBytes());
+            ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n12:00am").getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));
         }
@@ -55,7 +55,7 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldValidateUserInputForStartTime() throws IOException {
+    public void shouldValidateUserInputFormatStartTime() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y\n5:00pm\n12:00am".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -63,8 +63,21 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Invalid hour please enter value between 5:00pm and 4:00am"));
+        assertThat(outputStream.toString(), containsString("Invalid hour please enter value of the form hh:mm(am|pm)"));
         assertThat(outputStream.toString(), containsString("Received start time"));
+    }
+
+    @Test
+    public void shouldValidateUserInputsWorkableHourForStartTime() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00am\n7:00pm\n12:00am".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("Please enter a working hour"));
+        assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
     @Test
@@ -84,7 +97,7 @@ public class BabySitterApplicationTest {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
         for(WorkHours hour : WorkHours.values()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour() + ":00am").getBytes());
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour().toString()).getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));
         }
@@ -100,7 +113,7 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldValidateUserInputForEndTime() throws IOException {
+    public void shouldValidateUserInputFormatEndTime() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\ny\n12:00am".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -108,7 +121,20 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Invalid hour please enter value between 5:00pm and 4:00am"));
+        assertThat(outputStream.toString(), containsString("Invalid hour please enter value of the form hh:mm(am|pm)"));
+        assertThat(outputStream.toString(), containsString("Received end time"));
+    }
+
+    @Test
+    public void shouldValidateUserInputsWorkableHourForEndTime() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n5:00am\n12:00am".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("Please enter a working hour"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
