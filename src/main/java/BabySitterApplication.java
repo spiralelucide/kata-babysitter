@@ -27,23 +27,8 @@ public class BabySitterApplication {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-        printStream.println("Starting time: ");
-        String startTime = bufferedReader.readLine();
-        while(isInvalidWorkHour(startTime)) {
-            printStream.println("Invalid hour please enter value between 5:00pm and 4:00am");
-            printStream.println("Starting time: ");
-            startTime = bufferedReader.readLine();
-        }
-        printStream.println("Received start time");
-
-        printStream.println("Ending time: ");
-        String endTime = bufferedReader.readLine();
-        while(isInvalidWorkHour(endTime)) {
-            printStream.println("Invalid hour please enter value between 5:00pm and 4:00am");
-            printStream.println("Ending time: ");
-            endTime = bufferedReader.readLine();
-        }
-        printStream.println("Received end time");
+        readTime(bufferedReader, "Starting time: ", "Received start time");
+        readTime(bufferedReader, "Ending time: ", "Received end time");
 
         printStream.println("For which family: ");
         String family = bufferedReader.readLine();
@@ -52,9 +37,21 @@ public class BabySitterApplication {
         }
     }
 
-    private boolean isInvalidWorkHour(String startTime) {
-        if(startTime.matches(WorkHour.LOCAL_TIME_PATTERN)) {
-            String[] split = startTime.split(":");
+    private String readTime(BufferedReader bufferedReader, String s, String s2) throws IOException {
+        printStream.println(s);
+        String time = bufferedReader.readLine();
+        while (isInvalidWorkHour(time)) {
+            printStream.println("Invalid hour please enter value between 5:00pm and 4:00am");
+            printStream.println(s);
+            time = bufferedReader.readLine();
+        }
+        printStream.println(s2);
+        return time;
+    }
+
+    private boolean isInvalidWorkHour(String time) {
+        if(time.matches(WorkHour.LOCAL_TIME_PATTERN)) {
+            String[] split = time.split(":");
             Hour hour = new Hour(Integer.valueOf(split[0]));
             return !babySitter.getWorkHours().contains(hour);
         }
