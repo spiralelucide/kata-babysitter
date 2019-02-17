@@ -3,7 +3,7 @@ package model;
 import lombok.Getter;
 
 @Getter
-public enum WorkHours {
+public enum SchedulableHours {
     Five(new Hour(5, "pm")),
     Six(new Hour(6, "pm")),
     Seven(new Hour(7, "pm")),
@@ -19,7 +19,7 @@ public enum WorkHours {
 
     private final Hour hour;
 
-    WorkHours(Hour hour) {
+    SchedulableHours(Hour hour) {
         this.hour = hour;
     }
 }

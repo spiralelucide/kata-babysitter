@@ -1,5 +1,5 @@
 import model.TestInputOutput;
-import model.WorkHours;
+import model.SchedulableHours;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -38,7 +38,7 @@ public class BabySitterApplicationTest {
     public void shouldTakeValidUserInputForStartTime() throws IOException {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
-        for(WorkHours hour : WorkHours.values()) {
+        for(SchedulableHours hour : SchedulableHours.values()) {
             ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n12:00am").getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));
@@ -96,7 +96,7 @@ public class BabySitterApplicationTest {
     public void shouldTakeValidUserInputForEndTime() throws IOException {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
-        for(WorkHours hour : WorkHours.values()) {
+        for(SchedulableHours hour : SchedulableHours.values()) {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour().toString()).getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));

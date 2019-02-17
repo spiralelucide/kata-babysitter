@@ -9,7 +9,7 @@ public class BabySitter {
 
     public BabySitter() {
         workHours = new ArrayList<>();
-        Arrays.stream(WorkHours.values()).forEach(hour -> workHours.add(hour.getHour()));
+        Arrays.stream(SchedulableHours.values()).forEach(hour -> workHours.add(hour.getHour()));
     }
 
     public List<Hour> getWorkHours() {

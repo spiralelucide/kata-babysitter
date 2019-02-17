@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class WorkHoursTest {
+public class SchedulableHoursTest {
 
     @Test
     public void shouldGetHour() {
-        WorkHours hour = WorkHours.Four;
+        SchedulableHours hour = SchedulableHours.Four;
 
         assertEquals("4:00am", hour.getHour().toString());
     }
