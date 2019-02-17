@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class WorkHoursTest {
+public class HourTest {
 
+    private Hour hour = new Hour(12);
     @Test
-    public void shouldGetHour() {
-        WorkHours hour = WorkHours.Four;
+    public void getHour() {
+        hour.setHour(4);
 
         assertEquals("4", hour.getHour().toString());
     }

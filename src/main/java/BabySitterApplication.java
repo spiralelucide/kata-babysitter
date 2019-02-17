@@ -1,16 +1,18 @@
-import model.WorkHours;
+import model.BabySitter;
+import model.Hour;
+import model.WorkHour;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Arrays;
 
 public class BabySitterApplication {
 
     private PrintStream printStream;
     private InputStream inputStream;
+    BabySitter babySitter = new BabySitter();
 
     static void main(String[] args) {
 
@@ -22,12 +24,13 @@ public class BabySitterApplication {
     }
 
     public void run() throws IOException {
-        printStream.println("Starting time: ");
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        printStream.println("Starting time: ");
         String startTime = bufferedReader.readLine();
         while(isInvalidWorkHour(startTime)) {
-            printStream.println("Invalid hour please enter value between 5pm and 4am");
+            printStream.println("Invalid hour please enter value between 5:00pm and 4:00am");
             printStream.println("Starting time: ");
             startTime = bufferedReader.readLine();
         }
@@ -36,7 +39,7 @@ public class BabySitterApplication {
         printStream.println("Ending time: ");
         String endTime = bufferedReader.readLine();
         while(isInvalidWorkHour(endTime)) {
-            printStream.println("Invalid hour please enter value between 5pm and 4am");
+            printStream.println("Invalid hour please enter value between 5:00pm and 4:00am");
             printStream.println("Ending time: ");
             endTime = bufferedReader.readLine();
         }
@@ -50,6 +53,12 @@ public class BabySitterApplication {
     }
 
     private boolean isInvalidWorkHour(String startTime) {
-        return Arrays.stream(WorkHours.values()).noneMatch(workHours -> workHours.getHour().equals(startTime));
+        if(startTime.matches(WorkHour.LOCAL_TIME_PATTERN)) {
+            String[] split = startTime.split(":");
+            Hour hour = new Hour(Integer.valueOf(split[0]));
+            return !babySitter.getWorkHours().contains(hour);
+        }
+        return true;
     }
+
 }
