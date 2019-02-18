@@ -1,5 +1,6 @@
 package data;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import model.Hour;
 import model.Period;
@@ -9,8 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@EqualsAndHashCode
 public final class FamilyA implements Family {
 
+    public final static String NAME = "A";
     private final Map<Hour, Integer> rates;
 
     public FamilyA() {
