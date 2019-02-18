@@ -11,14 +11,14 @@ public class HourTest {
     private Hour hour = new Hour(1, Period.am);
 
     @Test
-    public void getHour() {
+    public void shouldGetHour() {
         hour.setHour(4);
 
         assertEquals("4", hour.getHour().toString());
     }
 
     @Test
-    public void shouldGetAmPm() {
+    public void shouldGetPeriod() {
         hour.setPeriod(Period.am);
 
         assertEquals("am", hour.getPeriod().toString());
@@ -34,6 +34,12 @@ public class HourTest {
     public void shouldDetermineEarlierHourAsBeforeLaterHour() {
         boolean result = hour.isBefore(new Hour(3, Period.am));
         assertTrue(result);
+    }
+
+    @Test
+    public void shouldOrderTwelveAmBeforeOneAm() {
+        boolean result = hour.isBefore(new Hour(12,Period.am));
+        assertFalse(result);
     }
 
 }

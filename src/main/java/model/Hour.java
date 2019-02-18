@@ -21,6 +21,8 @@ public class Hour {
     public boolean isBefore(Hour h1) {
         if(this.period != h1.period) {
             return this.period.equals(Period.pm);
+        } else if(this.hour.equals(12) || h1.hour.equals(12)) {
+            return this.hour.equals(12);
         } else if(!this.hour.equals(h1.hour)) {
             return this.hour.compareTo(h1.hour) < 0;
         }
@@ -31,12 +33,5 @@ public class Hour {
     public String toString() {
         return String.format("%s:00%s",hour.toString(), period);
     }
-
-//    @Override
-//    public int compareTo(Hour o) {
-//        int lastCmp = period.compareTo(o.period);
-//        return (lastCmp == 0 ? lastCmp : hour.compareTo(o.hour));
-//    }
-
 
 }
