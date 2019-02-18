@@ -33,9 +33,11 @@ public class BabySitterApplication {
 
         printStream.println("For which family: ");
         String family = bufferedReader.readLine();
-        if(family != null && babySitter.getFamilies().containsKey(family)) {
-            printStream.println("Received family");
+        while(!babySitter.getFamilies().containsKey(family)) {
+            printStream.println("Selection does not match any families available for babysitting, please try again: ");
+            family = bufferedReader.readLine();
         }
+        printStream.println("Received family");
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
