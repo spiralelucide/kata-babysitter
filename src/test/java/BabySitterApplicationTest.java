@@ -39,7 +39,7 @@ public class BabySitterApplicationTest {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
         for(SchedulableHours hour : SchedulableHours.values()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n12:00am").getBytes());
+            ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n4:00am").getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));
         }
@@ -135,6 +135,19 @@ public class BabySitterApplicationTest {
         babySitterApplication.run();
 
         assertThat(outputStream.toString(), containsString("Please enter a working hour"));
+        assertThat(outputStream.toString(), containsString("Received end time"));
+    }
+
+    @Test
+    public void shouldValidateThatEndTimeIsAfterStartTime() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("7:00pm\n5:00pm\n12:00am".getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("End time cannot be before start time, please try again"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 

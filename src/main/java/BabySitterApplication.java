@@ -40,7 +40,11 @@ public class BabySitterApplication {
 
         WorkHour endHour = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
         while(isInvalidWorkHour(endHour, babySitter.getWorkHours()) || isEndTimeBeforeStartTime(workNight.getStartTime(), endHour)) {
-            printStream.println("Please enter a working hour");
+            if(isInvalidWorkHour(endHour,babySitter.getWorkHours())) {
+                printStream.println("Please enter a working hour");
+            } else {
+                printStream.println("End time cannot be before start time, please try again");
+            }
             endHour = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
         }
         workNight.setEndTime(endHour);
@@ -65,7 +69,7 @@ public class BabySitterApplication {
     }
 
     private boolean isEndTimeBeforeStartTime(WorkHour startTime, WorkHour endHour) {
-        return false;
+        return endHour.isBefore(startTime);
     }
 
     private boolean isInvalidWorkHour(WorkHour workHour, List<Hour> workHours) {
