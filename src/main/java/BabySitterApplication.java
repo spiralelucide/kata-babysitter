@@ -28,14 +28,26 @@ public class BabySitterApplication {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
         WorkNight workNight = new WorkNight();
+        workNight.setStartTime(gatherStartTime(bufferedReader));
+        workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
 
+        printStream.println("For which family: ");
+        String family = bufferedReader.readLine();
+        if(family != null && family.equals("y")) {
+            printStream.println("Received family");
+        }
+    }
+
+    private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
         WorkHour startTime = readWorkHour(bufferedReader, "Starting time: ", "Received start time");
         while(isInvalidWorkHour(startTime)) {
             printStream.println("Please enter a working hour");
             startTime = readWorkHour(bufferedReader, "Starting time: ", "Received start time");
         }
-        workNight.setStartTime(startTime);
+        return startTime;
+    }
 
+    private WorkHour gatherEndTime(BufferedReader bufferedReader, WorkNight workNight) throws IOException {
         WorkHour endTime = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
         while(isInvalidWorkHour(endTime) || isEndTimeBeforeStartTime(workNight.getStartTime(), endTime)) {
             if(isInvalidWorkHour(endTime)) {
@@ -45,21 +57,7 @@ public class BabySitterApplication {
             }
             endTime = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
         }
-        workNight.setEndTime(endTime);
-
-        printStream.println("For which family: ");
-        String family = bufferedReader.readLine();
-        if(family != null && family.equals("y")) {
-            printStream.println("Received family");
-        }
-    }
-
-    private boolean isEndTimeBeforeStartTime(WorkHour startTime, WorkHour endTime) {
-        return !WorkNight.isStartTimeBeforeEndTime(startTime, endTime);
-    }
-
-    private boolean isInvalidWorkHour(WorkHour hour) {
-        return !hour.isValidWorkHour(babySitter.getWorkHours());
+        return endTime;
     }
 
     private WorkHour readWorkHour(BufferedReader bufferedReader, String promptMessage, String successMessage) throws IOException {
@@ -72,5 +70,13 @@ public class BabySitterApplication {
         }
         printStream.println(successMessage);
         return new WorkHour(time);
+    }
+
+    private boolean isEndTimeBeforeStartTime(WorkHour startTime, WorkHour endTime) {
+        return !WorkNight.isStartTimeBeforeEndTime(startTime, endTime);
+    }
+
+    private boolean isInvalidWorkHour(WorkHour hour) {
+        return !hour.isValidWorkHour(babySitter.getWorkHours());
     }
 }
