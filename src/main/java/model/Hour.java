@@ -21,6 +21,8 @@ public class Hour {
     public boolean isBefore(Hour h1) {
         if(this.period != h1.period) {
             return this.period.equals(Period.pm);
+        } else if(!this.hour.equals(h1.hour)) {
+            return this.hour.compareTo(h1.hour) < 0;
         }
         return false;
     }

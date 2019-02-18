@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class HourTest {
 
@@ -27,6 +28,12 @@ public class HourTest {
     public void shouldDeterminePmIsBeforeAm() {
         boolean result = hour.isBefore(new Hour(7, Period.pm));
         assertFalse(result);
+    }
+
+    @Test
+    public void shouldDetermineEarlierHourAsBeforeLaterHour() {
+        boolean result = hour.isBefore(new Hour(3, Period.am));
+        assertTrue(result);
     }
 
 }
