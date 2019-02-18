@@ -3,6 +3,7 @@ import data.SchedulableHours;
 import model.BabySitter;
 import org.junit.Test;
 import testutil.TestInputOutput;
+import testutil.UserInput;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +18,8 @@ import static org.junit.Assert.assertThat;
 
 public class BabySitterApplicationTest {
 
+    private UserInput.UserInputBuilder defaultUserInput = UserInput.defaultValues();
+
     @Test
     public void shouldInjectIO() {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
@@ -27,7 +30,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForStartTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -43,7 +48,9 @@ public class BabySitterApplicationTest {
 
         for(SchedulableHours hour : SchedulableHours.values()) {
             if(!hour.equals(SchedulableHours.Four)) {
-                ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n4:00am\nA").getBytes());
+                String userInput = defaultUserInput.startTimeInput(hour.getHour().toString() + "\n").build().toString();
+
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 inputOutputs.add(new TestInputOutput(inputStream, outputStream));
             }
@@ -61,7 +68,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateUserInputFormatStartTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("y\n5:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.startTimeInput("y\n5:00pm\n").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -74,7 +83,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateUserInputsWorkableHourForStartTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00am\n7:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.startTimeInput("5:00am\n7:00pm\n").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -87,7 +98,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -103,7 +116,9 @@ public class BabySitterApplicationTest {
 
         for(SchedulableHours hour : SchedulableHours.values()) {
             if(!hour.equals(SchedulableHours.Five)) {
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour().toString() + "\nA").getBytes());
+                String userInput = defaultUserInput.endTimeInput(hour.getHour().toString() + "\n").build().toString();
+
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 inputOutputs.add(new TestInputOutput(inputStream, outputStream));
             }
@@ -121,7 +136,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateUserInputFormatEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\ny\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.endTimeInput("y\n12:00am\n").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -134,7 +151,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateUserInputsWorkableHourForEndTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n5:00am\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.endTimeInput("5:00am\n12:00am\n").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -147,7 +166,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateThatEndTimeIsAfterStartTime() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("7:00pm\n5:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.startTimeInput("7:00pm\n").endTimeInput("5:00pm\n12:00am\n").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -160,7 +181,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldPromptUserForFamilyBabySitting() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nA".getBytes());
+        String userInput = defaultUserInput.build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
@@ -176,7 +199,9 @@ public class BabySitterApplicationTest {
         Map<String, Family> families = babySitter.getFamilies();
         List<TestInputOutput> inputOutputs = new ArrayList<>();
         for(Map.Entry<String, Family> familyEntry : families.entrySet()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n12:00am\n" + familyEntry.getKey()).getBytes());
+            String userInput = defaultUserInput.familyInput(familyEntry.getKey()).build().toString();
+
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             inputOutputs.add(new TestInputOutput(inputStream,outputStream));
         }
@@ -192,7 +217,9 @@ public class BabySitterApplicationTest {
 
     @Test
     public void shouldValidateThatFamilyEntryMatchesBabySitterFamily() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nD\nC".getBytes());
+        String userInput = defaultUserInput.familyInput("D\nC").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
