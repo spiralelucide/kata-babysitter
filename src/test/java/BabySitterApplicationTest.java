@@ -19,7 +19,7 @@ public class BabySitterApplicationTest {
         ByteArrayInputStream inputStream = new ByteArrayInputStream("y".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+        new BabySitterApplication(new PrintStream(outputStream), inputStream);
     }
 
     @Test
@@ -39,9 +39,11 @@ public class BabySitterApplicationTest {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
         for(SchedulableHours hour : SchedulableHours.values()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n4:00am").getBytes());
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            inputOutputs.add(new TestInputOutput(inputStream,outputStream));
+            if(!hour.equals(SchedulableHours.Four)) {
+                ByteArrayInputStream inputStream = new ByteArrayInputStream((hour.getHour().toString() + "\n4:00am").getBytes());
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                inputOutputs.add(new TestInputOutput(inputStream, outputStream));
+            }
         }
 
         for(TestInputOutput inputOutput : inputOutputs) {
@@ -63,7 +65,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Invalid hour please enter value of the form hh:mm(am|pm)"));
+        assertThat(outputStream.toString(), containsString("Invalid time format please enter value of the form hh:mm(am|pm)"));
         assertThat(outputStream.toString(), containsString("Received start time"));
     }
 
@@ -97,9 +99,11 @@ public class BabySitterApplicationTest {
         List<TestInputOutput> inputOutputs = new ArrayList<>();
 
         for(SchedulableHours hour : SchedulableHours.values()) {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour().toString()).getBytes());
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            inputOutputs.add(new TestInputOutput(inputStream,outputStream));
+            if(!hour.equals(SchedulableHours.Five)) {
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n" + hour.getHour().toString()).getBytes());
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                inputOutputs.add(new TestInputOutput(inputStream, outputStream));
+            }
         }
 
         for(TestInputOutput inputOutput : inputOutputs) {
@@ -121,7 +125,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Invalid hour please enter value of the form hh:mm(am|pm)"));
+        assertThat(outputStream.toString(), containsString("Invalid time format please enter value of the form hh:mm(am|pm)"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 

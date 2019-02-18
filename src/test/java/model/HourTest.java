@@ -42,4 +42,10 @@ public class HourTest {
         assertFalse(result);
     }
 
+    @Test
+    public void shouldReturnFalseWhenEvaluatingTheSameHourIsBefore() {
+        boolean result = hour.isBefore(new Hour(1,Period.am));
+        assertFalse(result);
+    }
+
 }

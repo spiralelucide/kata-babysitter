@@ -13,6 +13,7 @@ public class WorkNightTest {
     public void setUp() {
         workNight = new WorkNight();
     }
+
     @Test
     public void getStartTime() {
         WorkHour testWorkHour = new WorkHour();
@@ -34,5 +35,23 @@ public class WorkNightTest {
         workNight.setFamily("Family");
 
         assertEquals("Family", workNight.getFamily());
+    }
+
+    @Test
+    public void shouldReturnTrueIfStartTimeIsBeforeEndTime() {
+        WorkHour startTime = new WorkHour("4:00am");
+        WorkHour endTime = new WorkHour("5:00am");
+        boolean result = WorkNight.isStartTimeBeforeEndTime(startTime, endTime);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void shouldReturnFalseIfStartTimeIsAfterEndTime() {
+        WorkHour startTime = new WorkHour("5:00am");
+        WorkHour endTime = new WorkHour("4:00am");
+        boolean result = WorkNight.isStartTimeBeforeEndTime(startTime, endTime);
+
+        assertFalse(result);
     }
 }
