@@ -2,11 +2,12 @@ package model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class HourTest {
 
-    private Hour hour = new Hour(12, Period.am);
+    private Hour hour = new Hour(1, Period.am);
 
     @Test
     public void getHour() {
@@ -21,4 +22,11 @@ public class HourTest {
 
         assertEquals("am", hour.getPeriod().toString());
     }
+
+    @Test
+    public void shouldDeterminePmIsBeforeAm() {
+        boolean result = hour.isBefore(new Hour(7, Period.pm));
+        assertFalse(result);
+    }
+
 }
