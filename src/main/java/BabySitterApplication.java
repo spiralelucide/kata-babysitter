@@ -30,14 +30,7 @@ public class BabySitterApplication {
         WorkNight workNight = new WorkNight();
         workNight.setStartTime(gatherStartTime(bufferedReader));
         workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
-
-        printStream.println("For which family: ");
-        String family = bufferedReader.readLine();
-        while(!babySitter.getFamilies().containsKey(family)) {
-            printStream.println("Selection does not match any families available for babysitting, please try again: ");
-            family = bufferedReader.readLine();
-        }
-        printStream.println("Received family");
+        gatherFamily(bufferedReader);
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
@@ -60,6 +53,16 @@ public class BabySitterApplication {
             endTime = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
         }
         return endTime;
+    }
+
+    private void gatherFamily(BufferedReader bufferedReader) throws IOException {
+        printStream.println("For which family: ");
+        String family = bufferedReader.readLine();
+        while(!babySitter.getFamilies().containsKey(family)) {
+            printStream.println("Selection does not match any families available for babysitting, please try again: ");
+            family = bufferedReader.readLine();
+        }
+        printStream.println("Received family");
     }
 
     private WorkHour readWorkHour(BufferedReader bufferedReader, String promptMessage, String successMessage) throws IOException {
