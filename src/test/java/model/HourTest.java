@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class HourTest {
 
-    private Hour hour = new Hour(12, "am");
+    private Hour hour = new Hour(12, Period.am);
 
     @Test
     public void getHour() {
@@ -17,8 +17,8 @@ public class HourTest {
 
     @Test
     public void shouldGetAmPm() {
-        hour.setAmPm("am");
+        hour.setPeriod(Period.am);
 
-        assertEquals("am", hour.getAmPm());
+        assertEquals("am", hour.getPeriod().toString());
     }
 }

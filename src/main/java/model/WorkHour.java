@@ -20,7 +20,7 @@ public class WorkHour extends Hour {
         if(time.matches(LOCAL_TIME_PATTERN)) {
             String[] split = time.split(":");
             setHour(Integer.valueOf(split[0]));
-            setAmPm(split[1].substring(split[1].length()-2));
+            setPeriod(Period.valueOf(split[1].substring(split[1].length()-2)));
             return true;
         }
         return false;
