@@ -1,5 +1,6 @@
 package model;
 
+import data.FamilyA;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class WorkNightTest {
     }
 
     @Test
-    public void getStartTime() {
+    public void shouldGetStartTime() {
         WorkHour testWorkHour = new WorkHour();
         workNight.setStartTime(testWorkHour);
 
@@ -23,7 +24,7 @@ public class WorkNightTest {
     }
 
     @Test
-    public void getEndTime() {
+    public void shouldGetEndTime() {
         WorkHour testWorkHour = new WorkHour();
         workNight.setEndTime(testWorkHour);
 
@@ -31,10 +32,10 @@ public class WorkNightTest {
     }
 
     @Test
-    public void getFamily() {
-        workNight.setFamily("Family");
+    public void shouldGetFamily() {
+        workNight.setFamily(new FamilyA());
 
-        assertEquals("Family", workNight.getFamily());
+        assertEquals(new FamilyA(), workNight.getFamily());
     }
 
     @Test
@@ -53,5 +54,11 @@ public class WorkNightTest {
         boolean result = WorkNight.isStartTimeBeforeEndTime(startTime, endTime);
 
         assertFalse(result);
+    }
+
+    @Test
+    public void shouldReturnZeroDollarsWhenCalculated() {
+        int result = workNight.calculateTotal();
+        assertEquals(0, result);
     }
 }

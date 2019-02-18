@@ -241,7 +241,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Calculated total for the evening is $15"));
+        assertThat(outputStream.toString(), containsString("Calculated total for the evening is"));
     }
 
 }

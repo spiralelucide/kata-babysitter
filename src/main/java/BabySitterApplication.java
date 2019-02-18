@@ -1,3 +1,4 @@
+import data.Family;
 import model.BabySitter;
 import model.WorkHour;
 import model.WorkNight;
@@ -30,9 +31,9 @@ public class BabySitterApplication {
         WorkNight workNight = new WorkNight();
         workNight.setStartTime(gatherStartTime(bufferedReader));
         workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
-        gatherFamily(bufferedReader);
+        workNight.setFamily(gatherFamily(bufferedReader));
 
-        printStream.println("Calculated total for the evening is $15");
+        printStream.println(String.format("Calculated total for the evening is $%d", workNight.calculateTotal()));
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
@@ -57,7 +58,7 @@ public class BabySitterApplication {
         return endTime;
     }
 
-    private void gatherFamily(BufferedReader bufferedReader) throws IOException {
+    private Family gatherFamily(BufferedReader bufferedReader) throws IOException {
         printStream.println("For which family: ");
         String family = bufferedReader.readLine();
         while(!babySitter.getFamilies().containsKey(family)) {
@@ -65,6 +66,7 @@ public class BabySitterApplication {
             family = bufferedReader.readLine();
         }
         printStream.println("Received family");
+        return babySitter.getFamilies().get(family);
     }
 
     private WorkHour readWorkHour(BufferedReader bufferedReader, String promptMessage, String successMessage) throws IOException {
