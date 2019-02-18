@@ -168,8 +168,8 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldTakeUserInputForFamily() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\ny".getBytes());
+    public void shouldTakeValidUserInputForFamily() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nA".getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);

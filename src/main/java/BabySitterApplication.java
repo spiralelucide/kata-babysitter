@@ -33,7 +33,7 @@ public class BabySitterApplication {
 
         printStream.println("For which family: ");
         String family = bufferedReader.readLine();
-        if(family != null && family.equals("y")) {
+        if(family != null && family.equals("A")) {
             printStream.println("Received family");
         }
     }
