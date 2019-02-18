@@ -1,6 +1,8 @@
-import model.TestInputOutput;
-import model.SchedulableHours;
+import data.Family;
+import data.SchedulableHours;
+import model.BabySitter;
 import org.junit.Test;
+import testutil.TestInputOutput;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -168,26 +171,22 @@ public class BabySitterApplicationTest {
     }
 
     @Test
-    public void shouldTakeValidUserInputForFamilyA() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nA".getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    public void shouldTakeValidUserInputForFamilyEachFamily() throws IOException {
+        BabySitter babySitter = new BabySitter();
+        Map<String, Family> families = babySitter.getFamilies();
+        List<TestInputOutput> inputOutputs = new ArrayList<>();
+        for(Map.Entry<String, Family> familyEntry : families.entrySet()) {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(("5:00pm\n12:00am\n" + familyEntry.getKey()).getBytes());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            inputOutputs.add(new TestInputOutput(inputStream,outputStream));
+        }
 
-        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+        for(TestInputOutput inputOutput : inputOutputs) {
+            BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(inputOutput.getOutputStream()), inputOutput.getInputStream());
 
-        babySitterApplication.run();
+            babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Received family"));
-    }
-
-    @Test
-    public void shouldTakeValidUserInputForFamilyB() throws IOException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream("5:00pm\n12:00am\nB".getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
-
-        babySitterApplication.run();
-
-        assertThat(outputStream.toString(), containsString("Received family"));
+            assertThat(inputOutput.getOutputStream().toString(), containsString("Received family"));
+        }
     }
 }

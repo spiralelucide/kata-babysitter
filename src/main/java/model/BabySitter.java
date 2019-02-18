@@ -4,6 +4,7 @@ import data.Family;
 import data.FamilyA;
 import data.FamilyB;
 import data.FamilyC;
+import data.SchedulableHours;
 import lombok.Getter;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import java.util.Map;
 @EqualsAndHashCode
 public final class FamilyA implements Family {
 
-    public final static String NAME = "A";
+    public static final String NAME = "A";
     private final Map<Hour, Integer> rates;
 
     public FamilyA() {

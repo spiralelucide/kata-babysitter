@@ -1,5 +1,6 @@
 package model;
 
+import data.SchedulableHours;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

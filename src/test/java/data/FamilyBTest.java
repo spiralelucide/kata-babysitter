@@ -1,7 +1,6 @@
 package data;
 
 import model.Hour;
-import model.SchedulableHours;
 import org.junit.Before;
 import org.junit.Test;
 

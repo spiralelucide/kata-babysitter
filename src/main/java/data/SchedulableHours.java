@@ -1,6 +1,8 @@
-package model;
+package data;
 
 import lombok.Getter;
+import model.Hour;
+import model.Period;
 
 @Getter
 public enum SchedulableHours {

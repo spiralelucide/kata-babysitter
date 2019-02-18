@@ -1,4 +1,4 @@
-package model;
+package testutil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

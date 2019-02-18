@@ -3,6 +3,7 @@ package model;
 import data.FamilyA;
 import data.FamilyB;
 import data.FamilyC;
+import data.SchedulableHours;
 import org.junit.Test;
 
 import java.util.Arrays;
