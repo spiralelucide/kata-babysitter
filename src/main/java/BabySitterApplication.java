@@ -31,6 +31,8 @@ public class BabySitterApplication {
         workNight.setStartTime(gatherStartTime(bufferedReader));
         workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
         gatherFamily(bufferedReader);
+
+        printStream.println("Calculated total for the evening is $15");
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {

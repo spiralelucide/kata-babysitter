@@ -229,4 +229,19 @@ public class BabySitterApplicationTest {
         assertThat(outputStream.toString(), containsString("Selection does not match any families available for babysitting, please try again: "));
         assertThat(outputStream.toString(), containsString("Received family"));
     }
+
+    @Test
+    public void shouldCalculateTotalPayForNight() throws IOException {
+        String userInput = defaultUserInput.startTimeInput("5:00pm\n").endTimeInput("6:00pm\n").familyInput("A").build().toString();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        BabySitterApplication babySitterApplication = new BabySitterApplication(new PrintStream(outputStream), inputStream);
+
+        babySitterApplication.run();
+
+        assertThat(outputStream.toString(), containsString("Calculated total for the evening is $15"));
+    }
+
 }
