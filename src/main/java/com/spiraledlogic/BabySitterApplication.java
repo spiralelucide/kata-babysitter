@@ -28,15 +28,14 @@ public class BabySitterApplication {
     }
 
     public void run() throws IOException {
+        try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            WorkNight workNight = new WorkNight();
+            workNight.setStartTime(gatherStartTime(bufferedReader));
+            workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
+            workNight.setFamily(gatherFamily(bufferedReader));
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-        WorkNight workNight = new WorkNight();
-        workNight.setStartTime(gatherStartTime(bufferedReader));
-        workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
-        workNight.setFamily(gatherFamily(bufferedReader));
-
-        printStream.println(String.format("Calculated total pay for the evening is $%d", workNight.calculateTotal()));
+            printStream.println(String.format("Calculated total pay for the evening is $%d", workNight.calculateTotal()));
+        }
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
