@@ -1,4 +1,4 @@
-package model;
+package data;
 
 import data.SchedulableHours;
 import org.junit.Test;
