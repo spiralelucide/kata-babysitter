@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class WorkHour extends Hour {
-    public static final String LOCAL_TIME_PATTERN = "\\d{1,2}:\\d{2}(am|pm)";
+    public static final String LOCAL_TIME_PATTERN = "[0-1]?[0-9]:[0-5][0-9](am|pm)";
 
     public WorkHour(){}
 
