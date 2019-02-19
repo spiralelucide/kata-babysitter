@@ -6,7 +6,7 @@ import model.Hour;
 import model.Period;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Getter
@@ -17,7 +17,7 @@ public final class FamilyC implements Family {
     private final Map<Hour, Integer> rates;
 
     public FamilyC() {
-        Map<Hour, Integer> rates = new HashMap<>();
+        Map<Hour, Integer> rates = new LinkedHashMap<>();
         rates.put(new Hour(5, Period.pm), 21);
         rates.put(new Hour(6, Period.pm), 21);
         rates.put(new Hour(7, Period.pm), 21);

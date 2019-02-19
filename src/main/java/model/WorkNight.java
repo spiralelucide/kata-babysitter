@@ -4,6 +4,9 @@ import data.Family;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class WorkNight {
@@ -15,8 +18,21 @@ public class WorkNight {
         return startTime.isBefore(endTime);
     }
 
-    public int calculateTotal() {
+    public Integer calculateTotal() {
+        return calculate(false, new ArrayList<>(family.getRates().keySet()));
+    }
 
-        return 0;
+    private Integer calculate(boolean isAdding, List<Hour> hours) {
+        if(hours.get(0).equals(endTime)) {
+            return 0;
+        }
+        if(hours.get(0).equals(startTime)) {
+            isAdding = true;
+        }
+        Integer cal = calculate(isAdding, hours.subList(1, hours.size()));
+        if(isAdding) {
+            return cal + family.getRates().get(hours.get(0));
+        }
+        return cal;
     }
 }

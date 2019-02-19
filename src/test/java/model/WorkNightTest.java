@@ -1,10 +1,13 @@
 package model;
 
 import data.FamilyA;
+import data.FamilyC;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class WorkNightTest {
 
@@ -57,8 +60,32 @@ public class WorkNightTest {
     }
 
     @Test
-    public void shouldReturnZeroDollarsWhenCalculated() {
+    public void shouldReturnFifteenDollarsWhenCalculated() {
+        workNight.setStartTime(new WorkHour("5:00pm"));
+        workNight.setEndTime(new WorkHour("6:00pm"));
+        workNight.setFamily(new FamilyA());
+
         int result = workNight.calculateTotal();
-        assertEquals(0, result);
+
+        assertEquals(15, result);
+    }
+
+    @Test
+    public void shouldReturnThirtyDollarsWhenCalculated() {
+        workNight.setStartTime(new WorkHour("5:00pm"));
+        workNight.setEndTime(new WorkHour("7:00pm"));
+        workNight.setFamily(new FamilyA());
+        int result = workNight.calculateTotal();
+        assertEquals(30, result);
+    }
+
+    @Test
+    public void shouldCalculateOverPayTransitions() {
+        workNight.setStartTime(new WorkHour("5:00pm"));
+        workNight.setEndTime(new WorkHour("4:00am"));
+        workNight.setFamily(new FamilyC());
+
+        int result = workNight.calculateTotal();
+        assertEquals(189, result);
     }
 }
