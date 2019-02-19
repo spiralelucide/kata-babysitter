@@ -36,28 +36,30 @@ public class BabySitterApplication {
         workNight.setEndTime(gatherEndTime(bufferedReader, workNight));
         workNight.setFamily(gatherFamily(bufferedReader));
 
-        printStream.println(String.format("Calculated total for the evening is $%d", workNight.calculateTotal()));
+        printStream.println(String.format("Calculated total pay for the evening is $%d", workNight.calculateTotal()));
     }
 
     private WorkHour gatherStartTime(BufferedReader bufferedReader) throws IOException {
-        WorkHour startTime = readWorkHour(bufferedReader, "Starting time: ", "Received start time");
+        WorkHour startTime = readWorkHour(bufferedReader, "Starting time: ");
         while(isInvalidWorkHour(startTime)) {
-            printStream.println("Please enter a working hour");
-            startTime = readWorkHour(bufferedReader, "Starting time: ", "Received start time");
+            printStream.println(String.format("Please enter a time between %s and %s inclusive for starting time", "5:00pm" , "4:00am"));
+            startTime = readWorkHour(bufferedReader, "Starting time: ");
         }
+        printStream.println("Received start time");
         return startTime;
     }
 
     private WorkHour gatherEndTime(BufferedReader bufferedReader, WorkNight workNight) throws IOException {
-        WorkHour endTime = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
+        WorkHour endTime = readWorkHour(bufferedReader, "Ending time: ");
         while(isInvalidWorkHour(endTime) || isEndTimeBeforeStartTime(workNight.getStartTime(), endTime)) {
             if(isInvalidWorkHour(endTime)) {
-                printStream.println("Please enter a working hour");
+                printStream.println(String.format("Please enter a time between %s and %s inclusive for ending time", "5:00pm" , "4:00am"));
             } else {
-                printStream.println("End time cannot be before start time, please try again");
+                printStream.println("End time cannot be before or the same as start time, please try again");
             }
-            endTime = readWorkHour(bufferedReader, "Ending time: ", "Received end time");
+            endTime = readWorkHour(bufferedReader, "Ending time: ");
         }
+        printStream.println("Received end time");
         return endTime;
     }
 
@@ -65,14 +67,14 @@ public class BabySitterApplication {
         printStream.println("For which family: ");
         String family = bufferedReader.readLine();
         while(!babySitter.getFamilies().containsKey(family)) {
-            printStream.println("Selection does not match any families available for babysitting, please try again: ");
+            printStream.println(String.format("Selection does not match any families available for babysitting. The options are %s, please try again: ", babySitter.getFamilies().keySet().toString()));
             family = bufferedReader.readLine();
         }
         printStream.println("Received family");
         return babySitter.getFamilies().get(family);
     }
 
-    private WorkHour readWorkHour(BufferedReader bufferedReader, String promptMessage, String successMessage) throws IOException {
+    private WorkHour readWorkHour(BufferedReader bufferedReader, String promptMessage) throws IOException {
         printStream.println(promptMessage);
         String time = bufferedReader.readLine();
         while (!WorkHour.isValidTimeFormat(time)) {
@@ -80,7 +82,6 @@ public class BabySitterApplication {
             printStream.println(promptMessage);
             time = bufferedReader.readLine();
         }
-        printStream.println(successMessage);
         return new WorkHour(time);
     }
 

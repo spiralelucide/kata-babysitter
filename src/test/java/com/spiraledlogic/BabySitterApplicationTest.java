@@ -1,6 +1,5 @@
 package com.spiraledlogic;
 
-import com.spiraledlogic.BabySitterApplication;
 import com.spiraledlogic.data.Family;
 import com.spiraledlogic.data.SchedulableHours;
 import com.spiraledlogic.model.BabySitter;
@@ -95,7 +94,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Please enter a working hour"));
+        assertThat(outputStream.toString(), containsString("Please enter a time between 5:00pm and 4:00am inclusive for starting time"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
@@ -163,7 +162,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Please enter a working hour"));
+        assertThat(outputStream.toString(), containsString("Please enter a time between 5:00pm and 4:00am inclusive for ending time"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
@@ -178,7 +177,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("End time cannot be before start time, please try again"));
+        assertThat(outputStream.toString(), containsString("End time cannot be before or the same as start time, please try again"));
         assertThat(outputStream.toString(), containsString("Received end time"));
     }
 
@@ -229,7 +228,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Selection does not match any families available for babysitting, please try again: "));
+        assertThat(outputStream.toString(), containsString("Selection does not match any families available for babysitting. The options are [A, B, C], please try again: "));
         assertThat(outputStream.toString(), containsString("Received family"));
     }
 
@@ -244,7 +243,7 @@ public class BabySitterApplicationTest {
 
         babySitterApplication.run();
 
-        assertThat(outputStream.toString(), containsString("Calculated total for the evening is"));
+        assertThat(outputStream.toString(), containsString("Calculated total pay for the evening is $"));
     }
 
 }
