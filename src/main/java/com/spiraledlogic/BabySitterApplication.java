@@ -1,7 +1,9 @@
-import data.Family;
-import model.BabySitter;
-import model.WorkHour;
-import model.WorkNight;
+package com.spiraledlogic;
+
+import com.spiraledlogic.data.Family;
+import com.spiraledlogic.model.BabySitter;
+import com.spiraledlogic.model.WorkHour;
+import com.spiraledlogic.model.WorkNight;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +17,9 @@ public class BabySitterApplication {
     private InputStream inputStream;
     private BabySitter babySitter = new BabySitter();
 
-    static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        BabySitterApplication app = new BabySitterApplication(System.out,System.in);
+        app.run();
     }
 
     BabySitterApplication(PrintStream printStream, InputStream inputStream) {

@@ -1,8 +1,8 @@
-package data;
+package com.spiraledlogic.data;
 
+import com.spiraledlogic.model.Hour;
+import com.spiraledlogic.model.Period;
 import lombok.Getter;
-import model.Hour;
-import model.Period;
 
 @Getter
 public enum SchedulableHours {

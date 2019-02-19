@@ -1,6 +1,6 @@
-package model;
+package com.spiraledlogic.model;
 
-import data.Family;
+import com.spiraledlogic.data.Family;
 import lombok.Getter;
 import lombok.Setter;
 

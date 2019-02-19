@@ -1,4 +1,4 @@
-package model;
+package com.spiraledlogic.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

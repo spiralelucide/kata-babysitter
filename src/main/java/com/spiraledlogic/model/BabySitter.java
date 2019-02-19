@@ -1,10 +1,10 @@
-package model;
+package com.spiraledlogic.model;
 
-import data.Family;
-import data.FamilyA;
-import data.FamilyB;
-import data.FamilyC;
-import data.SchedulableHours;
+import com.spiraledlogic.data.Family;
+import com.spiraledlogic.data.FamilyA;
+import com.spiraledlogic.data.FamilyB;
+import com.spiraledlogic.data.FamilyC;
+import com.spiraledlogic.data.SchedulableHours;
 import lombok.Getter;
 
 import java.util.ArrayList;

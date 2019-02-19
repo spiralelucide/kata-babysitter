@@ -1,9 +1,9 @@
-package data;
+package com.spiraledlogic.data;
 
+import com.spiraledlogic.model.Hour;
+import com.spiraledlogic.model.Period;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import model.Hour;
-import model.Period;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

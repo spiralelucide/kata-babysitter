@@ -1,7 +1,7 @@
-package model;
+package com.spiraledlogic.model;
 
-import data.FamilyA;
-import data.FamilyC;
+import com.spiraledlogic.data.FamilyA;
+import com.spiraledlogic.data.FamilyC;
 import org.junit.Before;
 import org.junit.Test;
 

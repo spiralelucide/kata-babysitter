@@ -1,6 +1,6 @@
-package data;
+package com.spiraledlogic.data;
 
-import model.Hour;
+import com.spiraledlogic.model.Hour;
 
 import java.util.Map;
 

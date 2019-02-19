@@ -1,9 +1,9 @@
-package model;
+package com.spiraledlogic.model;
 
-import data.FamilyA;
-import data.FamilyB;
-import data.FamilyC;
-import data.SchedulableHours;
+import com.spiraledlogic.data.FamilyA;
+import com.spiraledlogic.data.FamilyB;
+import com.spiraledlogic.data.FamilyC;
+import com.spiraledlogic.data.SchedulableHours;
 import org.junit.Test;
 
 import java.util.Arrays;

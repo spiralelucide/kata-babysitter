@@ -1,6 +1,9 @@
-import data.Family;
-import data.SchedulableHours;
-import model.BabySitter;
+package com.spiraledlogic;
+
+import com.spiraledlogic.BabySitterApplication;
+import com.spiraledlogic.data.Family;
+import com.spiraledlogic.data.SchedulableHours;
+import com.spiraledlogic.model.BabySitter;
 import org.junit.Test;
 import testutil.TestInputOutput;
 import testutil.UserInput;

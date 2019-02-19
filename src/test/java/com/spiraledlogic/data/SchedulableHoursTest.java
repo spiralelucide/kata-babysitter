@@ -1,6 +1,5 @@
-package data;
+package com.spiraledlogic.data;
 
-import data.SchedulableHours;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
